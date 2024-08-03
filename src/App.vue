@@ -1,4 +1,5 @@
 <template>
+  <h1>老頂了</h1>
   <div>
     <h1>2024 vue week1</h1>
     <table>
@@ -17,9 +18,9 @@
           <td><small>{{ product.description }}</small></td>
           <td>{{ product.price }}</td>
           <td v-if="edit2">
-           
-            <button type="button" @click="subStock(product)">-</button>{{ product.stock }}<button type="button"
-              @click="addStock(product)">+</button>
+            <button type="button" @click="subStock(product)" :style="{ opacity: product.stock == 0 ? '0.4' : '1' }">-</button>{{
+              product.stock }}
+            <button type="button" @click="addStock(product)">+</button>
           </td>
           <td>
             <button type="button" @click="editProduct(product)">修改品項</button>
@@ -117,7 +118,7 @@ const products = ref([
 ]);
 const tempProduct = ref({})
 let edit = ref(false)
-let edit2=ref(true)
+let edit2 = ref(true)
 const addStock = (product) => {
   product.stock++;
 }
@@ -125,19 +126,18 @@ const subStock = (product) => {
   if (product.stock > 0) {
     product.stock--;
   }
+
 }
 const editProduct = (product) => {
   edit.value = true
-  edit2.value=false
+  edit2.value = false
   tempProduct.value = { ...product };
-
-
   // console.table(tempProduct.value);
 }
 
 const updateProduct = (product) => {
   edit.value = false
-  edit2.value=true
+  edit2.value = true
   products.value = products.value.map((p) => {
     if (p.id === product.id) {
       return product
@@ -146,9 +146,9 @@ const updateProduct = (product) => {
   })
 }
 
-const canel=(products)=>{
+const canel = (products) => {
   edit.value = false
-  edit2.value=true
+  edit2.value = true
   return products;
 
 }
